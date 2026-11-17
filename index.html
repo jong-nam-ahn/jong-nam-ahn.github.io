@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jongnam [Last Name]</title>
+  <meta name="description" content="Personal academic homepage of Jongnam [Last Name].">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --muted: #828282;
+      --theme: #b509ac;        /* al-folio purple accent; change to taste */
+      --divider: rgba(0,0,0,.1);
+      --placeholder: #e5e5e5;
+    }
+    :root[data-theme="dark"] {
+      --bg: #1c1c1d;
+      --text: #e8e8e8;
+      --muted: #9a9a9a;
+      --theme: #2698ba;
+      --divider: rgba(255,255,255,.12);
+      --placeholder: #333;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #1c1c1d; --text: #e8e8e8; --muted: #9a9a9a;
+        --theme: #2698ba; --divider: rgba(255,255,255,.12); --placeholder: #333;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 70px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Roboto, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color .2s, color .2s;
+    }
+    a { color: var(--theme); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 930px; margin: 0 auto; padding: 0 16px; }
+
+    /* ---------- nav ---------- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      background: var(--bg);
+      box-shadow: 0 1px 0 var(--divider);
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-name { color: var(--text); font-size: 1.25rem; font-weight: 300; }
+    .nav-name b { font-weight: 700; }
+    .nav-name:hover { text-decoration: none; color: var(--theme); }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-right a { color: var(--text); }
+    .nav-right a.active { color: var(--theme); }
+    #theme-toggle {
+      background: none; border: 0; padding: 0; cursor: pointer;
+      color: var(--text); font-size: 1rem;
+    }
+    #theme-toggle:hover { color: var(--theme); }
+
+    /* ---------- main ---------- */
+    main { padding-top: 88px; padding-bottom: 24px; }
+    .post-header h1 {
+      font-size: 2.5rem; font-weight: 300; margin: 0 0 .25rem;
+    }
+    .post-header h1 b { font-weight: 700; }
+    .post-header .desc { margin: 0 0 1.5rem; color: var(--muted); }
+
+    /* profile photo + icons, floated right (Hayoung-style) */
+    .profile {
+      float: right;
+      width: 30%;
+      max-width: 231px;
+      margin: 0 0 1rem 1.5rem;
+      text-align: center;
+    }
+    .profile .photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: var(--placeholder);
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    }
+    .contact-icons {
+      margin-top: 1rem;
+      display: flex; justify-content: center; gap: 1rem;
+      font-size: 1.6rem;
+    }
+    .contact-icons a { color: var(--text); }
+    .contact-icons a:hover { color: var(--theme); text-decoration: none; }
+
+    article p { margin: 0 0 1rem; }
+    article ul { margin: 0 0 1rem; padding-left: 1.5rem; }
+    article li { margin-bottom: .25rem; }
+    .clearfix::after { content: ""; display: table; clear: both; }
+
+    footer {
+      border-top: 1px solid var(--divider);
+      color: var(--muted);
+      font-size: .8rem;
+      text-align: center;
+      padding: 1rem 0 2rem;
+    }
+
+    @media (max-width: 576px) {
+      .profile { float: none; width: 60%; max-width: 220px; margin: 0 auto 1.5rem; }
+      .post-header h1 { font-size: 2rem; }
+    }
+  </style>
+  <script>
+    // apply saved theme before paint
+    try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a class="nav-name" href="/"><b>Jongnam</b> [Last Name]</a>
+      <div class="nav-right">
+        <a class="active" href="/">about</a>
+        <!-- <a href="assets/cv.pdf">cv</a> -->
+        <button id="theme-toggle" title="Toggle light/dark theme" aria-label="Toggle theme">
+          <i class="fa-solid fa-circle-half-stroke"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="post-header">
+      <h1><b>Jongnam</b> [Last Name]</h1>
+      <p class="desc">[Affiliation, e.g. B.S. student in Computer Science at Princeton University]</p>
+    </header>
+
+    <article class="clearfix">
+      <div class="profile">
+        <!-- Put a square photo at assets/img/profile.jpg; it is cropped to a circle automatically -->
+        <img class="photo" src="assets/img/profile.jpg" alt="Photo of Jongnam [Last Name]"
+             onerror="this.removeAttribute('src')">
+        <div class="contact-icons">
+          <a href="mailto:you@example.edu" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://github.com/YOUR_GITHUB" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <p>
+        I'm a [year / program] at <a href="https://www.cs.princeton.edu/" target="_blank" rel="noopener">[University]</a>,
+        where I work with <a href="#" target="_blank" rel="noopener">[Advisor Name]</a>.
+        My research focuses on [one-sentence summary of your research interests].
+        A few directions I'm currently excited about:
+      </p>
+      <ul>
+        <li>[Research direction 1]</li>
+        <li>[Research direction 2]</li>
+        <li>[Research direction 3]</li>
+      </ul>
+      <p>
+        Previously, I [internships, research roles, or prior labs, e.g. spent time at X working with Y].
+        [Optional: awards, press, or funding.]
+      </p>
+      <p>
+        I'm applying to PhD programs for Fall 2027. I'm always open to interesting conversations,
+        so feel free to reach out via <a href="mailto:you@example.edu">email</a>.
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      © Copyright <span id="year">2026</span> Jongnam [Last Name]. Last updated: November 2026.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const root = document.documentElement;
+      const isDark = root.dataset.theme
+        ? root.dataset.theme === "dark"
+        : matchMedia("(prefers-color-scheme: dark)").matches;
+      const next = isDark ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  </script>
+</body>
+</html>
