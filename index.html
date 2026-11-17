@@ -101,7 +101,7 @@
       nav .container {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         height: 56px;
       }
       .nav-name {
@@ -157,11 +157,10 @@
         color: var(--muted);
       }
 
-      /* intro text + profile photo/icons side by side.
-         The photo is sized by JS so the icon row lines up with the last line of text. */
+      /* intro text + profile photo/icons side by side (Hayoung-style) */
       .intro-row {
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         gap: 1.5rem;
       }
       .intro {
@@ -173,12 +172,14 @@
       }
       .profile {
         flex: none;
+        width: 30%;
+        max-width: 231px;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
       .profile .photo {
-        width: 120px;
+        width: 100%;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         object-fit: cover;
@@ -189,12 +190,11 @@
           0 2px 10px 0 rgba(0, 0, 0, 0.12);
       }
       .contact-icons {
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         display: flex;
         justify-content: center;
-        gap: 0.9rem;
-        font-size: 1.25rem;
-        line-height: 1.5rem; /* same as one line of body text */
+        gap: 1rem;
+        font-size: 1.6rem;
       }
       .contact-icons a {
         color: var(--text);
@@ -271,8 +271,9 @@
           flex-direction: column-reverse;
           align-items: center;
         }
-        .profile .photo {
-          width: 180px;
+        .profile {
+          width: 60%;
+          max-width: 220px;
         }
         .post-header h1 {
           font-size: 2rem;
@@ -290,7 +291,6 @@
   <body>
     <nav>
       <div class="container">
-        <a class="nav-name" href="./"><b>Jongnam</b> Ahn</a>
         <div class="nav-right">
           <a class="active" href="./">about</a>
           <a href="assets/img/cv.pdf" target="_blank" rel="noopener">cv</a>
@@ -327,14 +327,20 @@
             and
             <a href="https://www.korolova.com/" target="_blank" rel="noopener"
               >Aleksandra Korolova</a
-            >. My research interests are in computational social science and
-            human–AI interaction, especially in using AI to improve political
-            discourse.
+            >.
+          </p>
+          <p>
+            My research interests are broadly in computational social science
+            and human–AI interaction, particularly in using AI to improve
+            political discourse. I aim to (1) audit how large language models
+            tailor their responses to users' identities; and (2) understand how
+            these interactions shape people's beliefs and their conversations
+            with others.
           </p>
           <p>
             I'm applying to PhD programs for Fall 2027. I'm always open to
             interesting conversations, so feel free to reach out via
-            <a href="mailto:ja3436@princeton.edu">email</a>.
+            <a href="mailto:ja3436@princeton.edu">email</a>!
           </p>
         </div>
 
@@ -548,25 +554,6 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
-
-      // Size the photo so photo + icons are exactly as tall as the intro text,
-      // putting the icon row on the same line as the last line of text.
-      function fitPhoto() {
-        const intro = document.querySelector(".intro");
-        const photo = document.querySelector(".profile .photo");
-        const icons = document.querySelector(".contact-icons");
-        if (window.innerWidth <= 576) {
-          photo.style.width = "";
-          return;
-        }
-        const iconsH =
-          icons.offsetHeight + parseFloat(getComputedStyle(icons).marginTop);
-        const size = Math.max(72, Math.min(231, intro.offsetHeight - iconsH));
-        photo.style.width = size + "px";
-      }
-      fitPhoto();
-      window.addEventListener("resize", fitPhoto);
-      if (document.fonts) document.fonts.ready.then(fitPhoto);
 
       // Randomize schools and the faculty within each school (Fisher–Yates)
       document.querySelectorAll("[data-shuffle]").forEach((list) => {
